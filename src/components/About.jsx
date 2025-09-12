@@ -1,6 +1,6 @@
 function About() {
   return (
-    <main className="text-[#f9eee5] bg-[#171a25] max-w-4xl mx-auto my-30 p-8 rounded-2xl animate-scaling">
+    <main className="text-[#f9eee5] bg-[#171a25] max-w-3xl mx-auto my-30 p-8 rounded-2xl animate-scaling">
       <h2 className="font-bold capitalize text-2xl ">
         About this todo application
       </h2>
