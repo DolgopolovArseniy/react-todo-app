@@ -11,6 +11,8 @@
   --font-rubik: "Rubik", sans-serif;
   --animate-scaling: scaling 0.4s ease-out;
   --animate-appearing: appearing 0.4s ease-out;
+  --animate-rotate: rotate 1s linear infinite;
+  --animate-prixClipFix: prixClipFix 2s linear infinite;
 
   @keyframes scaling {
     0% {
@@ -33,6 +35,30 @@
       transform: translateY(1);
     }
   }
+
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes prixClipFix {
+    0% {
+      clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+    }
+    25% {
+      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+    }
+    50% {
+      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+    }
+    75% {
+      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+    }
+    100% {
+      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+    }
+  }
 }
 
 nav a {
@@ -44,5 +70,5 @@ nav a.active {
 }
 
 li button {
-  @apply text-xl uppercase cursor-pointer inline-block border-2 border-[#f1d5bf] rounded-lg px-2.5 py-1 hover:bg-[#f1d5bf] hover:text-[#2e3349] duration-150 ease-in-out text-[#f1d5bf];
+  @apply text-xl uppercase cursor-pointer inline-block border-2 border-[#f1d5bf] rounded-lg px-2.5 py-1 hover:bg-[#f1d5bf] hover:text-[#2e3349] duration-150 ease-in-out text-[#f1d5bf] disabled:border-[#aaaaaa] disabled:text-[#aaaaaa] disabled:bg-[#171a25] disabled:cursor-default;
 }
