@@ -1,14 +1,22 @@
-import { useState } from "react";
 import { ACTIONS, useTodos } from "../context/TodoContext";
 import toast from "react-hot-toast";
 
-function TodoForm({ isLoading }) {
-  const [inputQuery, setInputQuery] = useState("");
+function TodoForm({ isLoading, inputQuery, setInputQuery, editId, setEditId }) {
   const { dispatch } = useTodos();
-  const { ADD_TODO } = ACTIONS;
+  const { ADD_TODO, EDIT_TODO } = ACTIONS;
 
   function addTodo(text) {
     dispatch({ type: ADD_TODO, payload: text });
+  }
+
+  function editTodo(idAndTextObj) {
+    dispatch({ type: EDIT_TODO, payload: idAndTextObj });
+  }
+
+  function cancelEdit(e) {
+    e.stopPropagation();
+    setEditId(null);
+    setInputQuery("");
   }
 
   function handleSubmit(e) {
@@ -18,9 +26,17 @@ function TodoForm({ isLoading }) {
       toast.error("Oops! Looks like you forgot to type something.");
       return;
     }
-    addTodo(inputQuery);
-    setInputQuery("");
-    toast.success("Great! Your todo has been added.");
+
+    if (editId) {
+      editTodo({ id: editId, text: inputQuery });
+      setInputQuery("");
+      setEditId(null);
+      toast.success("Great! Your todo has been edited.");
+    } else {
+      addTodo(inputQuery);
+      setInputQuery("");
+      toast.success("Great! Your todo has been added.");
+    }
   }
 
   return (
@@ -36,12 +52,16 @@ function TodoForm({ isLoading }) {
         value={inputQuery}
         onChange={(e) => setInputQuery(e.target.value)}
       />
-      <button
-        className="text-xl uppercase cursor-pointer inline-block border-2 border-[#f1d5bf] rounded-lg px-2.5 py-1 hover:bg-[#f1d5bf] hover:text-[#2e3349] duration-150 ease-in-out disabled:border-[#aaaaaa] disabled:text-[#aaaaaa] disabled:bg-[#171a25] disabled:cursor-default"
-        disabled={isLoading}
-      >
-        Add
-      </button>
+      <button disabled={isLoading}>{editId ? "OK" : "Add"}</button>
+      {editId && (
+        <button
+          type="button"
+          disabled={isLoading}
+          onClick={(e) => cancelEdit(e)}
+        >
+          Cancel
+        </button>
+      )}
     </form>
   );
 }

@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 const TodoContext = createContext();
 
@@ -13,6 +13,7 @@ export const ACTIONS = {
   DELETE_TODO: "DELETE_TODO",
   TOGGLE_TODO: "TOGGLE_TODO",
   CLEAR_TODOS: "CLEAR_TODOS",
+  EDIT_TODO: "EDIT_TODO",
 };
 
 const reducer = (state, action) => {
@@ -23,7 +24,8 @@ const reducer = (state, action) => {
         todos: [
           ...state.todos,
           {
-            todo: action.payload,
+            todo:
+              action.payload.charAt(0).toUpperCase() + action.payload.slice(1),
             id: crypto.randomUUID(),
             completed: false,
           },
@@ -46,6 +48,16 @@ const reducer = (state, action) => {
         ),
       };
 
+    case "EDIT_TODO": {
+      const { id, text } = action.payload;
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === id ? { ...todo, todo: text } : todo
+        ),
+      };
+    }
+
     case "CLEAR_TODOS":
       return initialState;
 
@@ -55,7 +67,13 @@ const reducer = (state, action) => {
 };
 
 export function TodoProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const storedTodos = JSON.parse(localStorage.getItem("todos")) || initialState;
+  const [state, dispatch] = useReducer(reducer, storedTodos);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(state));
+  }, [state]);
+
   return (
     <TodoContext.Provider value={{ ...state, dispatch }}>
       {children}

@@ -69,6 +69,24 @@ nav a.active {
   @apply bg-[#f1d5bf] text-[#2e3349] border-[#f1d5bf];
 }
 
-li button {
+button {
   @apply text-xl uppercase cursor-pointer inline-block border-2 border-[#f1d5bf] rounded-lg px-2.5 py-1 hover:bg-[#f1d5bf] hover:text-[#2e3349] duration-150 ease-in-out text-[#f1d5bf] disabled:border-[#aaaaaa] disabled:text-[#aaaaaa] disabled:bg-[#171a25] disabled:cursor-default;
+}
+
+.scrollbar-invisible {
+  scrollbar-width: thin;
+  scrollbar-color: #f1d5bf transparent;
+}
+
+.scrollbar-invisible::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-invisible::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #f1d5bf;
+  border-radius: 9999px;
 }

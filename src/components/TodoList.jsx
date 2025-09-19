@@ -2,19 +2,29 @@ import { useState } from "react";
 import FetchDiv from "./FetchDiv";
 import TodoForm from "./TodoForm";
 import List from "./List";
-import { ACTIONS, useTodos } from "../context/TodoContext";
 
 function TodoList() {
   const [isLoading, setLoading] = useState(false);
-  const { todos, dispatch } = useTodos();
+  const [inputQuery, setInputQuery] = useState("");
+  const [editId, setEditId] = useState(null);
 
   return (
     <>
       <main className="text-[#f9eee5] bg-[#171a25] max-w-xl min-h-[34rem] max-h-[34rem] mx-auto my-30 p-8 rounded-2xl animate-scaling flex flex-col gap-8">
-        <TodoForm isLoading={isLoading} />
-        <List todos={todos} isLoading={isLoading} />
+        <TodoForm
+          isLoading={isLoading}
+          editId={editId}
+          inputQuery={inputQuery}
+          setInputQuery={setInputQuery}
+          setEditId={setEditId}
+        />
+        <List
+          isLoading={isLoading}
+          setEditId={setEditId}
+          setInputQuery={setInputQuery}
+        />
       </main>
-      <FetchDiv dispatch={dispatch} setLoading={setLoading} />
+      <FetchDiv setLoading={setLoading} />
     </>
   );
 }
