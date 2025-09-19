@@ -17,7 +17,18 @@ function TodoItem({ todo, completed, id, setEditId, setInputQuery }) {
   return (
     <li className="bg-[#12151e] rounded-2xl p-4 text-xl flex gap-2 justify-between items-center animate-appearing">
       <div className="flex gap-2 items-center flex-1 min-w-0">
-        <button onClick={() => toggleTodo(id)}>{!completed ? "✔" : "✘"}</button>
+        <button
+          onClick={() => {
+            toggleTodo(id);
+            toast.success(
+              `Great! Your todo set to ${
+                completed ? "uncompleted" : "completed"
+              }`
+            );
+          }}
+        >
+          {!completed ? "✔" : "✘"}
+        </button>
         <span
           className={`truncate capitalize ${completed && "line-through"}`}
           title={todo}
