@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { ACTIONS, useTodos } from "../context/TodoContext";
+import { ACTIONS, useTodos } from "../context/todoContext.jsx";
 
 function TodoItem({ todo, completed, id, setEditId, setInputQuery }) {
   const { DELETE_TODO, TOGGLE_TODO, EDIT_TODO } = ACTIONS;

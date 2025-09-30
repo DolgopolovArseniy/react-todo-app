@@ -1,4 +1,4 @@
-import { useTodos } from "../context/TodoContext";
+import { useTodos } from "../context/todoContext";
 import Loader from "./Loader";
 import TodoItem from "./TodoItem";
 

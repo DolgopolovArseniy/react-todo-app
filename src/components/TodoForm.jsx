@@ -1,4 +1,4 @@
-import { ACTIONS, useTodos } from "../context/TodoContext";
+import { ACTIONS, useTodos } from "../context/todoContext";
 import toast from "react-hot-toast";
 
 function TodoForm({ isLoading, inputQuery, setInputQuery, editId, setEditId }) {

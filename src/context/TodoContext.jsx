@@ -14,6 +14,7 @@ export const ACTIONS = {
   TOGGLE_TODO: "TOGGLE_TODO",
   CLEAR_TODOS: "CLEAR_TODOS",
   EDIT_TODO: "EDIT_TODO",
+  FETCH_TODOS: "FETCH_TODOS",
 };
 
 const reducer = (state, action) => {
@@ -55,6 +56,20 @@ const reducer = (state, action) => {
         todos: state.todos.map((todo) =>
           todo.id === id ? { ...todo, todo: text } : todo
         ),
+      };
+    }
+
+    case "FETCH_TODOS": {
+      return {
+        ...state,
+        todos: [
+          ...state.todos,
+          ...action.payload.map((todoObj) => ({
+            todo: todoObj.todo,
+            id: todoObj.id,
+            completed: todoObj.completed,
+          })),
+        ],
       };
     }
 
