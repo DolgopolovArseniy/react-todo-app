@@ -46,9 +46,6 @@ function TodoForm({ isLoading, inputQuery, setInputQuery, editId, setEditId }) {
     >
       <input
         type="text"
-        name=""
-        id=""
-        className="border-2 border-[#f1d5bf] rounded-lg p-2 text-[#f9eee5] text-xl min-w-[24rem]"
         value={inputQuery}
         onChange={(e) => setInputQuery(e.target.value)}
       />
