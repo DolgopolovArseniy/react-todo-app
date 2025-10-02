@@ -1,10 +1,10 @@
-import { ACTIONS, useTodos } from "../context/todoContext";
+import { TODO_ACTIONS, useTodos } from "../context/todoContext";
 import toast from "react-hot-toast";
 
 function FetchDiv({ setLoading }) {
   const { todos, dispatch } = useTodos();
 
-  const { CLEAR_TODOS, FETCH_TODOS } = ACTIONS;
+  const { CLEAR_TODOS, FETCH_TODOS } = TODO_ACTIONS;
 
   function handleClearTodos() {
     if (todos.length === 0) return;

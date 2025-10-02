@@ -1,9 +1,9 @@
-import { ACTIONS, useTodos } from "../context/todoContext";
+import { TODO_ACTIONS, useTodos } from "../context/todoContext";
 import toast from "react-hot-toast";
 
 function TodoForm({ isLoading, inputQuery, setInputQuery, editId, setEditId }) {
   const { dispatch } = useTodos();
-  const { ADD_TODO, EDIT_TODO } = ACTIONS;
+  const { ADD_TODO, EDIT_TODO } = TODO_ACTIONS;
 
   function addTodo(text) {
     dispatch({ type: ADD_TODO, payload: text });

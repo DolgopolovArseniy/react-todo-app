@@ -83,7 +83,11 @@ form a {
 }
 
 form div {
-  @apply flex flex-col gap-3;
+  @apply flex flex-col gap-2;
+}
+
+form div p {
+  @apply text-[#FF4F4F] font-semibold;
 }
 
 label {

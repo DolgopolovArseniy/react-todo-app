@@ -2,7 +2,6 @@ import { Link, NavLink, Outlet, useLocation } from "react-router";
 
 function Header() {
   const location = useLocation();
-  console.log(location);
   return (
     <>
       <header className="relative flex items-center h-16 px-8 text-2xl">
