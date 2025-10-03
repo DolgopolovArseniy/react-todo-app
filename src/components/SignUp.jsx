@@ -20,7 +20,15 @@ function SignUp() {
 
   const { CREATE_ACCOUNT } = AUTH_ACTIONS;
 
-  const { dispatch } = useUsers();
+  const { users, dispatch } = useUsers();
+
+  const checkUsernameAvailable = (value) => {
+    return (
+      !users.some(
+        (user) => value.toLowerCase() === user.username.toLowerCase()
+      ) || "Username is already taken"
+    );
+  };
 
   function onSubmit({ username, password }) {
     dispatch({ type: CREATE_ACCOUNT, payload: { username, password } });
@@ -29,7 +37,7 @@ function SignUp() {
       Your account has been successfully created!`,
       { duration: 4300 }
     );
-    navigate("/login");
+    navigate("/login", { replace: true });
   }
 
   return (
@@ -51,6 +59,7 @@ function SignUp() {
               value: 2,
               message: "Username must contain minimum 2 characters",
             },
+            validate: checkUsernameAvailable,
           })}
         />
         {errors.username && <p>{errors.username.message}</p>}

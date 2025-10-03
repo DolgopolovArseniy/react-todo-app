@@ -19,19 +19,21 @@ export const TODO_ACTIONS = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "ADD_TODO":
+    case "ADD_TODO": {
+      const { text, userId } = action.payload;
+
+      const newTodo = {
+        todo: text.charAt(0).toUpperCase() + text.slice(1),
+        id: crypto.randomUUID(),
+        completed: false,
+        userId: userId,
+      };
+
       return {
         ...state,
-        todos: [
-          ...state.todos,
-          {
-            todo:
-              action.payload.charAt(0).toUpperCase() + action.payload.slice(1),
-            id: crypto.randomUUID(),
-            completed: false,
-          },
-        ],
+        todos: [...state.todos, newTodo],
       };
+    }
 
     case "DELETE_TODO":
       return {
@@ -60,14 +62,16 @@ const reducer = (state, action) => {
     }
 
     case "FETCH_TODOS": {
+      const { userId, randomTodos } = action.payload;
       return {
         ...state,
         todos: [
           ...state.todos,
-          ...action.payload.map((todoObj) => ({
+          ...randomTodos.map((todoObj) => ({
             todo: todoObj.todo,
             id: todoObj.id,
             completed: todoObj.completed,
+            userId: userId,
           })),
         ],
       };

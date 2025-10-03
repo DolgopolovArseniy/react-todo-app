@@ -61,10 +61,6 @@
   }
 }
 
-nav a {
-  @apply inline-block border-2 border-[#f1d5bf] rounded-lg px-2.5 py-1 hover:bg-[#f1d5bf] hover:text-[#2e3349] duration-150 ease-in-out;
-}
-
 nav a.active {
   @apply bg-[#f1d5bf] text-[#2e3349] border-[#f1d5bf];
 }
@@ -73,13 +69,16 @@ form a {
   @apply text-xl uppercase cursor-pointer inline-block border-2 border-[#f1d5bf] rounded-lg px-2.5 py-1 hover:bg-[#f1d5bf] hover:text-[#2e3349] duration-150 ease-in-out text-[#f1d5bf] disabled:border-[#aaaaaa] disabled:text-[#aaaaaa] disabled:bg-[#171a25] disabled:cursor-default;
 }
 
-button {
-  @apply text-xl uppercase cursor-pointer inline-block border-2 border-[#f1d5bf] rounded-lg px-2.5 py-1 hover:bg-[#f1d5bf] hover:text-[#2e3349] duration-150 ease-in-out text-[#f1d5bf] disabled:border-[#aaaaaa] disabled:text-[#aaaaaa] disabled:bg-[#171a25] disabled:cursor-default;
+nav a,
+nav button {
+  @apply inline-block border-2 border-[#f1d5bf] rounded-lg px-2.5 py-1 hover:bg-[#f1d5bf] hover:text-[#2e3349] duration-150 ease-in-out cursor-pointer;
 }
 
 form button,
-form a {
-  @apply font-medium text-center;
+div > button,
+form a,
+.todo-button {
+  @apply text-xl uppercase cursor-pointer inline-block border-2 border-[#f1d5bf] rounded-lg px-2.5 py-1 hover:bg-[#f1d5bf] hover:text-[#2e3349] duration-150 ease-in-out text-[#f1d5bf] disabled:border-[#aaaaaa] disabled:text-[#aaaaaa] disabled:bg-[#171a25] disabled:cursor-default;
 }
 
 form div {

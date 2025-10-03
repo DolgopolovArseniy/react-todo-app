@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { TODO_ACTIONS, useTodos } from "../context/todoContext.jsx";
+import { TODO_ACTIONS, useTodos } from "../context/TodoContext.jsx";
 
 function TodoItem({ todo, completed, id, setEditId, setInputQuery }) {
   const { DELETE_TODO, TOGGLE_TODO, EDIT_TODO } = TODO_ACTIONS;
@@ -44,12 +44,15 @@ function TodoItem({ todo, completed, id, setEditId, setInputQuery }) {
               setInputQuery(todo);
               setEditId(id);
             }}
+            className="todo-button"
           >
             Edit
           </button>
         </li>
         <li>
-          <button onClick={() => deleteTodo(id)}>Delete</button>
+          <button onClick={() => deleteTodo(id)} className="todo-button">
+            Delete
+          </button>
         </li>
       </ul>
     </li>

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Header from "./components/Header";
 import About from "./components/About";
 import TodoList from "./components/TodoList";
-import { TodoProvider } from "./context/todoContext";
+import { TodoProvider } from "./context/TodoContext";
 import { AuthProvider } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import Login from "./components/Login";
@@ -12,7 +12,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Header />}>
+        <Route
+          path="/"
+          element={
+            <AuthProvider>
+              <Header />
+            </AuthProvider>
+          }
+        >
           <Route index element={<Navigate to="/login" />} />
           <Route
             path="login"
@@ -32,11 +39,13 @@ function App() {
           />
           <Route path="about" element={<About />} />
           <Route
-            path="list"
+            path=":username/list"
             element={
-              <TodoProvider>
-                <TodoList />
-              </TodoProvider>
+              <AuthProvider>
+                <TodoProvider>
+                  <TodoList />
+                </TodoProvider>
+              </AuthProvider>
             }
           />
         </Route>

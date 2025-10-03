@@ -1,8 +1,16 @@
-import { TODO_ACTIONS, useTodos } from "../context/todoContext";
+import { useParams } from "react-router";
+import { useUsers } from "../context/AuthContext";
+import { TODO_ACTIONS, useTodos } from "../context/TodoContext";
 import toast from "react-hot-toast";
 
 function FetchDiv({ setLoading }) {
   const { todos, dispatch } = useTodos();
+  const { users } = useUsers();
+  const { username } = useParams();
+
+  const userId = users.find(
+    (user) => username.toLowerCase() === user.username.toLowerCase()
+  ).userId;
 
   const { CLEAR_TODOS, FETCH_TODOS } = TODO_ACTIONS;
 
@@ -26,7 +34,7 @@ function FetchDiv({ setLoading }) {
 
       const randomTodos = await Promise.all(fetchPromises);
 
-      dispatch({ type: FETCH_TODOS, payload: randomTodos });
+      dispatch({ type: FETCH_TODOS, payload: { randomTodos, userId } });
 
       toast.success("Great! You have successfully fetched todos.");
     } catch (err) {

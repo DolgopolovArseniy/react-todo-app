@@ -1,12 +1,20 @@
-import { TODO_ACTIONS, useTodos } from "../context/todoContext";
+import { useParams } from "react-router";
+import { useUsers } from "../context/AuthContext";
+import { TODO_ACTIONS, useTodos } from "../context/TodoContext";
 import toast from "react-hot-toast";
 
 function TodoForm({ isLoading, inputQuery, setInputQuery, editId, setEditId }) {
   const { dispatch } = useTodos();
   const { ADD_TODO, EDIT_TODO } = TODO_ACTIONS;
+  const { users } = useUsers();
+  const { username } = useParams();
 
-  function addTodo(text) {
-    dispatch({ type: ADD_TODO, payload: text });
+  const userId = users.find(
+    (user) => username.toLowerCase() === user.username.toLowerCase()
+  ).userId;
+
+  function addTodo(text, userId) {
+    dispatch({ type: ADD_TODO, payload: { text, userId } });
   }
 
   function editTodo(idAndTextObj) {
@@ -33,7 +41,7 @@ function TodoForm({ isLoading, inputQuery, setInputQuery, editId, setEditId }) {
       setEditId(null);
       toast.success("Great! Your todo has been edited.");
     } else {
-      addTodo(inputQuery);
+      addTodo(inputQuery, userId);
       setInputQuery("");
       toast.success("Great! Your todo has been added.");
     }
