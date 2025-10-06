@@ -7,10 +7,13 @@ const AuthContext = createContext();
 const initialState = {
   users: [],
   isAuthenticated: false,
+  currentUser: null,
 };
 
 export const AUTH_ACTIONS = {
   CREATE_ACCOUNT: "CREATE_ACCOUNT",
+  LOGIN: "LOGIN",
+  LOGOUT: "LOGOUT",
 };
 
 const reducer = (state, action) => {
@@ -34,12 +37,14 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
+        currentUser: action.payload,
       };
 
     case "LOGOUT":
       return {
         ...state,
         isAuthenticated: false,
+        currentUser: null,
       };
 
     default:
@@ -48,11 +53,12 @@ const reducer = (state, action) => {
 };
 
 export function AuthProvider({ children }) {
-  const storedUsers = JSON.parse(localStorage.getItem("users")) || initialState;
-  const [state, dispatch] = useReducer(reducer, storedUsers);
+  const storedState =
+    JSON.parse(localStorage.getItem("authState")) || initialState;
+  const [state, dispatch] = useReducer(reducer, storedState);
 
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(state));
+    localStorage.setItem("authState", JSON.stringify(state));
   }, [state]);
 
   return (
@@ -62,6 +68,6 @@ export function AuthProvider({ children }) {
   );
 }
 
-export const useUsers = () => {
+export const useAuth = () => {
   return useContext(AuthContext);
 };

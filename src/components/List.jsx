@@ -1,17 +1,13 @@
 import { useTodos } from "../context/TodoContext";
-import { useParams } from "react-router";
-import { useUsers } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import Loader from "./Loader";
 import TodoItem from "./TodoItem";
 
 function List({ isLoading, setEditId, setInputQuery }) {
   const { todos } = useTodos();
-  const { users } = useUsers();
-  const { username } = useParams();
+  const { currentUser } = useAuth();
 
-  const userId = users.find(
-    (user) => username.toLowerCase() === user.username.toLowerCase()
-  ).userId;
+  const userId = currentUser.userId;
 
   return (
     <section

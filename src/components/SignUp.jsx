@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
-import { AUTH_ACTIONS, useUsers } from "../context/AuthContext";
+import { AUTH_ACTIONS, useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
 function SignUp() {
@@ -20,7 +20,7 @@ function SignUp() {
 
   const { CREATE_ACCOUNT } = AUTH_ACTIONS;
 
-  const { users, dispatch } = useUsers();
+  const { users, dispatch } = useAuth();
 
   const checkUsernameAvailable = (value) => {
     return (
@@ -77,8 +77,12 @@ function SignUp() {
               value: 4,
               message: "Password must be at least 4 characters",
             },
+            maxLength: {
+              value: 20,
+              message: "Password must contain no more than 20 characters",
+            },
             pattern: {
-              value: /^(?=.*\d)[A-Za-z\d@$!%*?&]{4,}$/,
+              value: /^(?=.*\d)[A-Za-z\d@$!%*?&]{4,20}$/,
               message:
                 "Password must contain at least one digit and only letters, numbers, and @$!%*?&",
             },

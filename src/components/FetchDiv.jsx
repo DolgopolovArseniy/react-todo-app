@@ -1,18 +1,13 @@
-import { useParams } from "react-router";
-import { useUsers } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { TODO_ACTIONS, useTodos } from "../context/TodoContext";
 import toast from "react-hot-toast";
 
 function FetchDiv({ setLoading }) {
-  const { todos, dispatch } = useTodos();
-  const { users } = useUsers();
-  const { username } = useParams();
-
-  const userId = users.find(
-    (user) => username.toLowerCase() === user.username.toLowerCase()
-  ).userId;
-
   const { CLEAR_TODOS, FETCH_TODOS } = TODO_ACTIONS;
+  const { todos, dispatch } = useTodos();
+  const { currentUser } = useAuth();
+
+  const userId = currentUser.userId;
 
   function handleClearTodos() {
     if (todos.length === 0) return;

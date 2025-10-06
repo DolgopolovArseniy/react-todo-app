@@ -1,55 +1,51 @@
-import { Link, NavLink, Outlet } from "react-router";
-import { useUsers } from "../context/AuthContext";
-import { IoIosLogOut } from "react-icons/io";
+import { Link, NavLink, Outlet, useNavigate } from "react-router"; // Исправлен импорт
+import { AUTH_ACTIONS, useAuth } from "../context/AuthContext";
 
 function Header() {
-  const { isAuthenticated } = useUsers();
+  const { isAuthenticated, currentUser, dispatch } = useAuth();
+  const { LOGOUT } = AUTH_ACTIONS;
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch({ type: LOGOUT });
+    navigate("/login", { replace: true });
+  };
+
   return (
     <>
       <header className="relative flex items-center h-16 px-8 text-2xl">
         <h1 className="pl-2 font-bold">Arseniy Dolgopolov's</h1>
 
-        {isAuthenticated ? (
-          <>
-            <h2 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 uppercase font-bold scale-152">
-              ToDo App
-            </h2>
+        <Link
+          to="/"
+          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 uppercase font-bold scale-152"
+        >
+          ToDo App
+        </Link>
 
-            <nav className="ml-auto pr-2">
-              <ul className="flex gap-6 ">
+        <nav className="ml-auto pr-2">
+          <ul className="flex gap-6">
+            <li>
+              <NavLink to="/about">About</NavLink>
+            </li>
+            {isAuthenticated ? (
+              <>
                 <li>
-                  <NavLink to="about">About</NavLink>
+                  <NavLink to={`/${currentUser?.username}/list`}>List</NavLink>
                 </li>
                 <li>
-                  <NavLink to="login">Log in</NavLink>
+                  <button className="nav-button" onClick={handleLogout}>
+                    LOG OUT
+                  </button>
                 </li>
-              </ul>
-            </nav>
-          </>
-        ) : (
-          <>
-            <Link
-              to="about"
-              className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 uppercase font-bold scale-152"
-            >
-              ToDo App
-            </Link>
-
-            <nav className="ml-auto pr-2">
-              <ul className="flex gap-6 ">
-                <li>
-                  <NavLink to="about">About</NavLink>
-                </li>
-                <li>
-                  <NavLink to="list">List</NavLink>
-                </li>
-                <li>
-                  <button className="nav-button">LOG OUT</button>
-                </li>
-              </ul>
-            </nav>
-          </>
-        )}
+              </>
+            ) : (
+              <li>
+                <NavLink to="/login">LOG IN</NavLink>
+              </li>
+            )}
+          </ul>
+        </nav>
       </header>
       <Outlet />
     </>

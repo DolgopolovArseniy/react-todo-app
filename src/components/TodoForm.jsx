@@ -1,17 +1,13 @@
-import { useParams } from "react-router";
-import { useUsers } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { TODO_ACTIONS, useTodos } from "../context/TodoContext";
 import toast from "react-hot-toast";
 
 function TodoForm({ isLoading, inputQuery, setInputQuery, editId, setEditId }) {
-  const { dispatch } = useTodos();
   const { ADD_TODO, EDIT_TODO } = TODO_ACTIONS;
-  const { users } = useUsers();
-  const { username } = useParams();
+  const { dispatch } = useTodos();
+  const { currentUser } = useAuth();
 
-  const userId = users.find(
-    (user) => username.toLowerCase() === user.username.toLowerCase()
-  ).userId;
+  const userId = currentUser.userId;
 
   function addTodo(text, userId) {
     dispatch({ type: ADD_TODO, payload: { text, userId } });

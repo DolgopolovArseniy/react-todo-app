@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
-import { AUTH_ACTIONS, useUsers } from "../context/AuthContext";
+import { AUTH_ACTIONS, useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
 function Login() {
@@ -15,7 +15,7 @@ function Login() {
   const navigate = useNavigate();
 
   const { LOGIN } = AUTH_ACTIONS;
-  const { dispatch, users } = useUsers();
+  const { dispatch, users } = useAuth();
 
   function onSubmit({ username, password }) {
     const user = users.find(
@@ -26,7 +26,7 @@ function Login() {
       toast.error(`Wrong username or password`, { duration: 4500 });
     } else {
       toast.success(`You're in!`, { duration: 4300 });
-      dispatch({ type: LOGIN });
+      dispatch({ type: LOGIN, payload: user });
       navigate(`/${user.username}/list`);
     }
   }
