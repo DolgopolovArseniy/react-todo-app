@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FetchDiv from "./FetchDiv";
+import TodoFetchPanel from "./TodoFetchPanel";
 import TodoForm from "./TodoForm";
 import List from "./List";
 
@@ -24,7 +24,7 @@ function TodoList() {
           setInputQuery={setInputQuery}
         />
       </main>
-      <FetchDiv setLoading={setLoading} />
+      <TodoFetchPanel setLoading={setLoading} />
     </>
   );
 }
